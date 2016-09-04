@@ -30,7 +30,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # gem 'unicorn'
 
 gem "paperclip", "~> 5.0.0"
-
+gem "geocoder", :require => "geocoder"
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

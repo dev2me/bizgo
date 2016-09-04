@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :bussine do
-    association :user, factory: :user
+    
     name "Comercial Mexicana"
     description "Comercial mexicana de comercio"
     lunes false
@@ -38,7 +38,6 @@ FactoryGirl.define do
     close_domingo_morning "2016-08-20 17:24:12"
     open_domingo_afternon "2016-08-20 17:24:12"
     close_domingo_afternon "2016-08-20 17:24:12"
-    user nil
     direccion "MyString"
     longitud 1.5
     latitud 1.5
@@ -49,5 +48,7 @@ FactoryGirl.define do
     facebook "MyString"
     active false
     expires_at "2016-08-20 17:24:12"
+    email "hola@andresdominguez.me"
+    association :user, factory: :user
   end
 end

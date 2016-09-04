@@ -4,7 +4,16 @@ class Api::V1::BussinesController < ApplicationController
   # GET /bussines
   # GET /bussines.json
   def index
-    @bussines = Bussine.all
+    if params[:lat] && params[:long]
+      #puts "\n\n\n\n\n\n Lat: #{params[:lat]} \n Long: #{params[:long]} \n\n\n\n"
+      @bussines = Bussine.near([params[:lat],params[:long]], 20*0.62).all
+    else
+      @bussines = Bussine.all
+    end
+
+    if params[:raise] 
+      raise
+    end
   end
 
   def show
