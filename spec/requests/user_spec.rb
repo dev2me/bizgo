@@ -14,7 +14,7 @@ RSpec.describe  Api::V1::UsersController, type: :request do
         it "responds with the user found or created" do
             json = JSON.parse(response.body)
             #puts "\n\n\n\n ---- #{json} --- \n\n\n"
-            expect(json["email"]).to eq("hola@andresdominguez.me")
+            expect(json["data"]["email"]).to eq("hola@andresdominguez.me")
         end
     end
 end

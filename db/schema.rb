@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160820172412) do
+ActiveRecord::Schema.define(version: 20160910164730) do
 
   create_table "bussines", force: :cascade do |t|
     t.string   "name"
@@ -84,10 +84,14 @@ ActiveRecord::Schema.define(version: 20160820172412) do
     t.string   "name"
     t.string   "provider"
     t.string   "uid"
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
-    t.integer  "nivel",      default: 0
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+    t.integer  "nivel",               default: 0
     t.string   "avatar"
+    t.string   "avatar_file_name"
+    t.string   "avatar_content_type"
+    t.integer  "avatar_file_size"
+    t.datetime "avatar_updated_at"
   end
 
 end

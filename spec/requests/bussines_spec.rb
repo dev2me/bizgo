@@ -13,7 +13,7 @@ RSpec.describe  Api::V1::BussinesController, type: :request do
     it "show JSON of bussines" do
       #puts "\n\n\n\n  --- #{response.body} --- \n\n\n\n"
       json = JSON.parse(response.body)
-      expect(json.length).to eq(Bussine.count)
+      expect(json["data"].length).to eq(Bussine.count)
     end
   end
 
@@ -28,11 +28,11 @@ RSpec.describe  Api::V1::BussinesController, type: :request do
     it "responde con el modelo solicitado" do 
       json = JSON.parse(response.body)
       #puts "\n\n\n --- #{json} --- \n\n\n"
-      expect(json["id"]).to eq(@bussine.id)
+      expect(json["data"]["id"]).to eq(@bussine.id)
     end
     it "manda los atributos del modelo" do
       json = JSON.parse(response.body)
-      expect(json.keys).to contain_exactly("id", "name", "description", "user_id","direccion", "telefono", "telefono_sec", "website", "twitter", "facebook", "email", "active", "expires_at","lunes", "open_lunes_morning", "close_lunes_morning", "open_lunes_afternon", "close_lunes_afternon", "martes", "open_martes_morning", "close_martes_morning", "open_martes_afternon", "close_martes_afternon", "miercoles", "open_miercoles_morning", "close_miercoles_morning", "open_miercoles_afternon", "close_miercoles_afternon", "jueves", "open_jueves_morning", "close_jueves_morning", "open_jueves_afternon", "close_jueves_afternon", "viernes", "open_viernes_morning", "close_viernes_morning", "open_viernes_afternon", "close_viernes_afternon", "sabado", "open_sabado_morning", "close_sabado_morning", "open_sabado_afternon", "close_sabado_afternon", "domingo", "open_domingo_morning", "close_domingo_morning", "open_domingo_afternon", "close_domingo_afternon")
+      expect(json["data"].keys).to contain_exactly("id", "name", "description", "user_id","direccion", "telefono", "telefono_sec", "website", "twitter", "facebook", "email", "active", "expires_at","lunes", "open_lunes_morning", "close_lunes_morning", "open_lunes_afternon", "close_lunes_afternon", "martes", "open_martes_morning", "close_martes_morning", "open_martes_afternon", "close_martes_afternon", "miercoles", "open_miercoles_morning", "close_miercoles_morning", "open_miercoles_afternon", "close_miercoles_afternon", "jueves", "open_jueves_morning", "close_jueves_morning", "open_jueves_afternon", "close_jueves_afternon", "viernes", "open_viernes_morning", "close_viernes_morning", "open_viernes_afternon", "close_viernes_afternon", "sabado", "open_sabado_morning", "close_sabado_morning", "open_sabado_afternon", "close_sabado_afternon", "domingo", "open_domingo_morning", "close_domingo_morning", "open_domingo_afternon", "close_domingo_afternon", "user")
     end
   end
   
@@ -55,7 +55,7 @@ RSpec.describe  Api::V1::BussinesController, type: :request do
       end
       it "responde con el negocio creado" do
         json = JSON.parse(response.body)
-        expect(json["name"]).to eq("Hola mundo")
+        expect(json["data"]["name"]).to eq("Hola mundo")
       end
     end
     context "with invalid session" do
@@ -94,7 +94,7 @@ RSpec.describe  Api::V1::BussinesController, type: :request do
       
       it "update the model " do 
         json = JSON.parse(response.body)
-        expect(json["name"]).to eq("Este es mi nuevo nombre")
+        expect(json["data"]["name"]).to eq("Este es mi nuevo nombre")
       end
     end
     

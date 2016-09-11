@@ -5,15 +5,12 @@ class Api::V1::BussinesController < ApplicationController
   # GET /bussines.json
   def index
     if params[:lat] && params[:long]
-      #puts "\n\n\n\n\n\n Lat: #{params[:lat]} \n Long: #{params[:long]} \n\n\n\n"
-      @bussines = Bussine.near([params[:lat],params[:long]], 20*0.62).all
+      @bussines = Bussine.near([params[:lat],params[:long]], 1*0.62).all
     else
       @bussines = Bussine.all
     end
 
-    if params[:raise] 
-      raise
-    end
+    
   end
 
   def show
@@ -28,10 +25,10 @@ class Api::V1::BussinesController < ApplicationController
       if @bussine.save
         render "api/v1/bussines/show"
       else
-        render json: { errors: @bussine.errors.full_messages}, status: :unprocessable_entity
+        array_error!(@bussine.errors.full_messages, 422)
       end
     else
-      render json: {error: "Los paramatros del modelo (bussine[]) no se han encontrado en la petición." }
+      error!("Los paramatros del modelo (bussine[]) no se han encontrado en la petición.")
     end
   end
 
@@ -41,7 +38,8 @@ class Api::V1::BussinesController < ApplicationController
       @bussine.update(bussine_params)
       render "api/v1/bussines/show"
     else
-      render json: {errors: "El usuarios no tiene autorizado realizar dicha acción."}, status: 401
+      #render json: {errors: "El usuarios no tiene autorizado realizar dicha acción."}, status: 401
+      error!("El usuarios no tiene autorizado realizar dicha acción.",401)
     end
    
    

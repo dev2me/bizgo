@@ -4,6 +4,8 @@ class User < ActiveRecord::Base
     has_many :tokens
     has_many :bussines
     enum nivel: [:usuario, :socio]
+    has_attached_file :avatar, styles: {medium: "300x300", thumb: "100x100"}
+    validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\z/
     
     def self.from_omniauth(data)
         User.where(provider: data[:provider], uid: data[:uid]).first_or_create do |user| 
