@@ -1,6 +1,6 @@
 class Api::V1::BussinesController < ApplicationController
   before_action :authenticate, only: [:create,:update,:destroy]
-  before_action :set_bussine, only: [:show,:update]
+  before_action :set_bussine, only: [:show,:update, :destroy]
   # GET /bussines
   # GET /bussines.json
   def index
@@ -45,7 +45,13 @@ class Api::V1::BussinesController < ApplicationController
    
   end
   def destroy
- 
+    if @bussine.user == @current_user || @current_user.admin_bizgo?
+      @bussine.delete
+      render "api/v1/bussines/index"
+    else
+      error!("No puedes eliminar este registro. Contacta al administrador.", 401)
+    end
+
   end
   
   private

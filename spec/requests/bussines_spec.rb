@@ -21,7 +21,6 @@ RSpec.describe  Api::V1::BussinesController, type: :request do
     before :each do
       @bussine = FactoryGirl.create(:bussine)
       get api_v1_bussine_path(@bussine)
-      
     end
     
     it {expect(response).to have_http_status(200)}
@@ -35,7 +34,6 @@ RSpec.describe  Api::V1::BussinesController, type: :request do
       expect(json["data"].keys).to contain_exactly("id", "name", "description", "user_id","direccion", "telefono", "telefono_sec", "website", "twitter", "facebook", "email", "active", "expires_at","lunes", "open_lunes_morning", "close_lunes_morning", "open_lunes_afternon", "close_lunes_afternon", "martes", "open_martes_morning", "close_martes_morning", "open_martes_afternon", "close_martes_afternon", "miercoles", "open_miercoles_morning", "close_miercoles_morning", "open_miercoles_afternon", "close_miercoles_afternon", "jueves", "open_jueves_morning", "close_jueves_morning", "open_jueves_afternon", "close_jueves_afternon", "viernes", "open_viernes_morning", "close_viernes_morning", "open_viernes_afternon", "close_viernes_afternon", "sabado", "open_sabado_morning", "close_sabado_morning", "open_sabado_afternon", "close_sabado_afternon", "domingo", "open_domingo_morning", "close_domingo_morning", "open_domingo_afternon", "close_domingo_afternon", "user")
     end
   end
-  
   
   describe "POST /bussines" do
     context "with valid session" do
@@ -79,7 +77,6 @@ RSpec.describe  Api::V1::BussinesController, type: :request do
     end
   end
   
-   
   describe "PATCH /bussines/:id" do
     #before :each do
     #end
@@ -105,6 +102,26 @@ RSpec.describe  Api::V1::BussinesController, type: :request do
         patch api_v1_bussine_path(@bussine), { token: @token.token, bussine: {name: "Este es mi nuevo nombre"}}
       end
       it {expect(response).to have_http_status(401)}
+    end
+  end
+
+  describe "DELETE /bussines/:id" do
+    context "with a token valid" do
+      before :each do
+        @token = FactoryGirl.create(:token, expires_at: DateTime.now + 1.month)
+        @bussine = FactoryGirl.create(:bussine, user: @token.user)
+        delete api_v1_bussine_path(@bussine)
+      end
+
+      it { expect(response).to have_http_status(200); puts "\n\n\n\n --- #{response.body} --- \n\n\n"}
+    end
+    context "with a token invalid" do
+      before :each do
+        @token = FactoryGirl.create(:token, expires_at: DateTime.now - 1.month)
+        @bussine = FactoryGirl.create(:bussine, user: @token.user)
+        delete api_v1_bussine_path(@bussine)
+      end
+      it { expect(response).to have_http_status(401)}
     end
   end
 end
