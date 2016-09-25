@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   
+  
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -58,6 +59,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :users, onlye: [:create, :show, :update]
       resources :bussines, except: [:new,:edit]
+      resources :plans
     end
   end
   

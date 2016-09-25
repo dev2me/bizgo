@@ -28,7 +28,7 @@ class Api::V1::BussinesController < ApplicationController
         array_error!(@bussine.errors.full_messages, 422)
       end
     else
-      error!("Los paramatros del modelo (bussine[]) no se han encontrado en la petición.")
+      error!("Los paramatros del modelo (bussine[]) no se han encontrado en la petición.",401)
     end
   end
 
